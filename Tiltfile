@@ -16,11 +16,11 @@ docker_build(
   only = [
     'public/',
     'src/',
-    '.eslintrc.json',
     'brigade-dashboard.nginx.conf',
-    'config-overrides.js',
+    'index.html',
     'package.json',
     'tsconfig.json',
+    'vite.config.ts',
     'yarn.lock'
   ],
   ignore = ['**/*_test.go']
