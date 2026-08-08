@@ -1,6 +1,6 @@
 import React from "react"
 
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -18,7 +18,13 @@ import Users from "./Users"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
-ReactDOM.render(
+const rootElement = document.getElementById("root")
+
+if (!rootElement) {
+  throw new Error("Root element was not found")
+}
+
+createRoot(rootElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
@@ -37,6 +43,5 @@ ReactDOM.render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 )
