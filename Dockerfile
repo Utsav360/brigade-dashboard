@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:16.13.2-alpine3.15 as builder
+FROM --platform=$BUILDPLATFORM node:24.6.0-alpine3.22 as builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN yarn install
 
 COPY . .
 
-# Build the react app in production mode. Artifacts will be stored in build/
+# Build the React app in production mode. Artifacts will be stored in dist/
 RUN yarn build
 
 FROM nginxinc/nginx-unprivileged:1.20.2-alpine as final
@@ -27,7 +27,7 @@ COPY brigade-dashboard.nginx.conf /etc/nginx/conf.d/brigade-dashboard.conf
 RUN mkdir -p /etc/nginx/brigade-dashboard.conf.d
 
 # Copy build artifacts from build stage
-COPY --from=builder --chown=nginx:nginx /app/build /usr/share/nginx/brigade-dashboard
+COPY --from=builder --chown=nginx:nginx /app/dist /usr/share/nginx/brigade-dashboard
 
 USER nginx
 
